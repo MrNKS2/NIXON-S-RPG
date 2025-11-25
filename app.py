@@ -336,13 +336,13 @@ def rolar_puro(dado):
 def rolar_manual(personagem_id):
     personagem = Personagem.query.get_or_404(personagem_id)
     if personagem.usuario_id != current_user.id:
-        return jsonify({"erro": "Acesso negado"}), 403
+        return render_template("resultado_rolagem.html", erro="Acesso negado", personagem_id=personagem_id)
 
     tipo = request.form.get("dado")
     try:
         qtd, faces = parse_dado(tipo)
     except Exception:
-        return jsonify({"erro": "dado inválido"}), 400
+        return render_template("resultado_rolagem.html", erro="Dado inválido", personagem_id=personagem_id)
 
     try:
         modificador_manual = int(request.form.get("modificador", 0))
@@ -379,11 +379,10 @@ def rolar_manual(personagem_id):
                 if it2 and it2.personagem_id == personagem.id:
                     mods.append(it2.bonus)
 
-    # para rolagem de dados
     rolls = [random.randint(1, faces) for _ in range(qtd)]
     soma_dado = sum(rolls)
     total = soma_dado + sum(mods)
-    return jsonify({"tipo": tipo, "dado": soma_dado, "modificadores": sum(mods), "total": total, "rolagens": rolls})
+    return render_template("resultado_rolagem.html", tipo=tipo, dado=soma_dado, modificadores=sum(mods), total=total, rolagens=rolls, personagem_id=personagem_id)
 
 
 @app.route("/rolar_pericia/<int:pericia_id>", methods=["POST"])
@@ -392,16 +391,16 @@ def rolar_pericia(pericia_id):
     p = Pericia.query.get_or_404(pericia_id)
     personagem = p.personagem
     if personagem.usuario_id != current_user.id:
-        return jsonify({"erro": "Acesso negado"}), 403
+        return render_template("resultado_rolagem.html", erro="Acesso negado", personagem_id=personagem.id)
 
     tipo = request.form.get("dado") or p.dado_padrao
     if not tipo:
-        return jsonify({"erro": "dado não informado"}), 400
+        return render_template("resultado_rolagem.html", erro="Dado não informado", personagem_id=personagem.id)
 
     try:
         qtd, faces = parse_dado(tipo)
     except Exception:
-        return jsonify({"erro": "dado inválido"}), 400
+        return render_template("resultado_rolagem.html", erro="Dado inválido", personagem_id=personagem.id)
 
     mods = []
     if p.bonus_fixo:
@@ -418,11 +417,11 @@ def rolar_pericia(pericia_id):
     rolls = [random.randint(1, faces) for _ in range(qtd)]
     soma_dado = sum(rolls)
     total = soma_dado + sum(mods)
-    return jsonify({"tipo": tipo, "dado": soma_dado, "modificadores": sum(mods), "total": total, "rolagens": rolls})
+    return render_template("resultado_rolagem.html", tipo=tipo, dado=soma_dado, modificadores=sum(mods), total=total, rolagens=rolls, personagem_id=personagem.id)
 
 
 # Inicialização
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run()
+    app.run(debug=True)

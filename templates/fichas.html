@@ -115,10 +115,11 @@
                                 <form method="POST" action="{{ url_for('pericia_excluir', pericia_id=p.id) }}" style="display:inline;">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir perícia?')">Excluir</button>
                                 </form>
-                                <form method="POST" action="{{ url_for('rolar_pericia', pericia_id=p.id) }}" style="display:inline;">
-                                    <input type="hidden" name="dado" value="1d20">
+                                <form method="POST" action="{{ url_for('rolar_pericia', pericia_id=p.id) }}" style="display:inline;" class="form-rolar-pericia">
+                                    <input type="hidden" name="dado" value="{{ p.dado_padrao or '1d20' }}">
                                     <button type="submit" class="btn btn-sm btn-success">Rolar</button>
                                 </form>
+                                <div class="resultado-pericia" style="margin-top: 10px; display: none;"></div>  <!-- Div para resultado da perícia -->
                             </td>
                         </tr>
                         {% endfor %}
@@ -282,7 +283,7 @@
                 <h5>Rolagem Manual</h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ url_for('rolar_manual', personagem_id=personagem.id) }}">
+                <form id="form-rolagem-manual" method="POST" action="{{ url_for('rolar_manual', personagem_id=personagem.id) }}">
                     <div class="row g-3">
                         <div class="col-md-2">
                             <input type="text" class="form-control" name="dado" placeholder="Dado (ex: 1d20)" required>
@@ -319,9 +320,68 @@
                         </div>
                     </div>
                 </form>
+
+                <!-- EXIBIÇÃO DO RESULTADO -->
+                <div id="resultado-manual" style="margin-top: 10px; display: none;"></div>
+
             </div>
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Para rolagens de perícias
+            document.querySelectorAll('.form-rolar-pericia').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const resultadoDiv = this.parentElement.querySelector('.resultado-pericia');
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.erro) {
+                            resultadoDiv.innerHTML = `<p class="text-danger">${data.erro}</p>`;
+                        } else {
+                            resultadoDiv.innerHTML = `<p class="text-success"><strong>Resultado: ${data.total}</strong> (Dado: ${data.dado}, Modificadores: ${data.modificadores})</p><small>Rolagens: ${data.rolagens.join(', ')}</small>`;
+                        }
+                        resultadoDiv.style.display = 'block';
+                    })
+                    .catch(error => {
+                        resultadoDiv.innerHTML = '<p class="text-danger">Erro na rolagem.</p>';
+                        resultadoDiv.style.display = 'block';
+                    });
+                });
+            });
+
+            // Para rolagem manual
+            const formManual = document.getElementById('form-rolagem-manual');
+            if (formManual) {
+                formManual.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const resultadoDiv = document.getElementById('resultado-manual');
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.erro) {
+                            resultadoDiv.innerHTML = `<p class="text-danger">${data.erro}</p>`;
+                        } else {
+                            resultadoDiv.innerHTML = `<p class="text-success"><strong>Resultado: ${data.total}</strong> (Dado: ${data.dado}, Modificadores: ${data.modificadores})</p><small>Rolagens: ${data.rolagens.join(', ')}</small>`;
+                        }
+                        resultadoDiv.style.display = 'block';
+                    })
+                    .catch(error => {
+                        resultadoDiv.innerHTML = '<p class="text-danger">Erro na rolagem.</p>';
+                        resultadoDiv.style.display = 'block';
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

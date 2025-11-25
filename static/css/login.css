@@ -11,8 +11,9 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh; /*pra ele se sobrepor a tudo e ocupar o meio*/
-  background: linear-gradient(rgba(45, 40, 40, 0.5), rgba(45, 40, 40, 0.7)),
-    url("/static/img/backgtound-desktop.png");
+   background:
+      linear-gradient(rgba(0, 0, 0, 0.601), rgb(0, 0, 0)),
+      url("/static/img/backgtound-desktop.png");
 
   background-size: cover;
   background-position: center;
@@ -59,7 +60,7 @@ body {
   border-radius: 40px;
   outline: none; /*tira a linha azul qnd clica*/
   font-size: 16px;
-  color: #fff;
+  color: #5f5f5f;
   padding: 20px 45px 20px 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -74,6 +75,7 @@ body {
   top: 50%; /*ele começa a partir do meio, então ->*/
   transform: translateY(-50%); /*y = vertical. agr centralizou*/
   font-size: 20px;
+  color: black;
 }
 
 .remember-forgot {

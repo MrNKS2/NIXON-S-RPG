@@ -1,152 +1,157 @@
-/* Importar fontes mais góticas do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@400;700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    
+}
 
-/* Fundo e layout geral - Paleta gótica: Tons pétreos e escuros */
+
 body {
-  width: 95%;
-  max-width: 1000px; /* Largura aumentada proporcionalmente */
-  padding: 30px;
-  border-radius: 20px;
-  background: rgba(169, 169, 169, 0.8); /* Cinza pedra com transparência */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 25px rgba(47, 47, 47, 0.7); /* Sombra negra para profundidade gótica */
-  color: #2F2F2F; /* Texto preto carvão */
-  animation: fadeIn 0.6s ease;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
-  /* Imagem de fundo mantida com gradiente pétreo */
-  background: linear-gradient(rgba(169, 169, 169, 0.5), rgba(112, 128, 144, 0.7)),
-    url("/static/img/backgtound-desktop.png");
+  background:
+      linear-gradient(rgba(0, 0, 0, 0.601), rgb(0, 0, 0)),
+      url("/static/img/backgtound-desktop.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* Nova fonte gótica para texto geral */
-  font-family: 'Old Standard TT', serif;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
 }
 
-/* Títulos - Paleta gótica: Preto com acentos dourados */
-body h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #2F2F2F; /* Preto carvão */
-  /* Nova fonte gótica para títulos */
-  font-family: 'UnifrakturCook', cursive;
-  font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(218, 165, 32, 0.5); /* Sombra dourada sutil */
+/* ===== CONTAINER CENTRAL ===== */
+.container {
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 25px;
+  color: #fff;
 }
 
-body h2 {
-  margin-top: 30px;
-  font-size: 1.5rem;
-  border-bottom: 1px solid rgba(218, 165, 32, 0.5); /* Dourado antigo */
-  padding-bottom: 10px;
-  color: #2F2F2F;
-  /* Nova fonte gótica para subtítulos */
-  font-family: 'UnifrakturCook', cursive;
-  font-weight: 400;
+
+/* ===== TÍTULO ===== */
+.container h1 {
+  color: #fff;
+  font-size: 34px;
+  text-shadow: 0px 0px 8px rgba(0,0,0,0.4);
 }
 
-/* Inputs, selects e textareas - Paleta gótica: Fundo pétreo */
-body input,
-body select,
-body textarea {
-  width: 100%;
-  padding: 15px;
-  margin: 12px 0;
-  background: rgba(169, 169, 169, 0.7); /* Cinza pedra */
-  border: 1px solid rgba(112, 128, 144, 0.5); /* Cinza médio */
-  border-radius: 10px;
-  color: #2F2F2F; /* Texto preto */
-  /* Nova fonte gótica para inputs */
-  font-family: 'Old Standard TT', serif;
-  font-size: 1rem;
+/* ===== CARDS ===== */
+.card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #fff;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;
+  backdrop-filter: blur(8px);
 }
 
-body input::placeholder,
-body textarea::placeholder {
-  color: rgba(47, 47, 47, 0.6); /* Preto com transparência */
-  /* Nova fonte gótica para placeholders */
-  font-family: 'Old Standard TT', serif;
+.card-header {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #fff;
 }
 
-/* Botões - Paleta gótica personalizada */
-body .btn-primary { /* Adicionar */
-  background-color: #708090; /* Cinza pedra */
-  border-color: #708090;
-  color: #FFFFFF; /* Branco para contraste */
+/* ===== TABELAS ===== */
+.table {
+  color: #fff;
 }
 
-body .btn-primary:hover {
-  background-color: #5F6F7F; /* Cinza mais escuro */
-  border-color: #5F6F7F;
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-body .btn-warning { /* Editar */
-  background-color: #DAA520; /* Dourado antigo */
-  border-color: #DAA520;
-  color: #2F2F2F; /* Preto para legibilidade */
+.table-striped > tbody > tr:nth-of-type(even) {
+  background: rgba(255, 255, 255, 0.03);
 }
 
-body .btn-warning:hover {
-  background-color: #B8860B; /* Dourado mais escuro */
-  border-color: #B8860B;
+.table thead {
+  background: rgba(0,0,0,0.3);
+  color: #fff;
 }
 
-body .btn-danger { /* Excluir */
-  background-color: #800020; /* Borgonha escuro */
-  border-color: #800020;
-  color: #FFFFFF; /* Branco */
+/* ===== INPUTS ===== */
+.form-control,
+.form-select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 2px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 12px;
 }
 
-body .btn-danger:hover {
-  background-color: #5C0016; /* Borgonha mais escuro */
-  border-color: #5C0016;
+.form-control::placeholder {
+  color: #d1d1d1;
 }
 
-body .btn-secondary { /* Geral (ex.: voltar) */
-  background-color: #2F2F2F; /* Preto carvão */
-  border-color: #2F2F2F;
-  color: #FFFFFF;
+input.form-control {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
 }
 
-body .btn-secondary:hover {
-  background-color: #1C1C1C; /* Preto mais escuro */
-  border-color: #1C1C1C;
+/* PLACEHOLDER */
+input.form-control::placeholder {
+    color: #e5e5e5 !important;
 }
 
-body .btn-success { /* Rolar */
-  background-color: #556B2F; /* Verde oliva escuro para vibe gótica */
-  border-color: #556B2F;
-  color: #FFFFFF;
+/* ===== BOTÕES ===== */
+.btn {
+  border-radius: 12px !important;
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 10px;
+  transition: 0.3s;
 }
 
-body .btn-success:hover {
-  background-color: #3D4F1C; /* Verde oliva mais escuro */
-  border-color: #3D4F1C;
+.btn-primary {
+  background-color: #7a6148 !important;
+  border: none !important;
 }
 
-/* Animação */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  body {
-    width: 98%;
-    padding: 20px;
-    max-width: none;
-  }
-  body h1 {
-    font-size: 2rem;
-  }
-  body h2 {
-    font-size: 1.2rem;
-  }
+.btn-secondary {
+  background-color: rgba(140, 140, 140, 0.4) !important;
+  backdrop-filter: blur(5px);
+}
+
+.btn-danger:hover,
+.btn-warning:hover,
+.btn-success:hover,
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* ===== HR ===== */
+hr {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* CORRIGE CORES DO SELECT */
+.form-select option {
+  background-color: #3a3a3a;
+}
+
+table thead th {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+table tbody td {
+    background: rgba(10, 10, 10, 0.45) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
 }
