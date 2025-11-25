@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nixon's RPG</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  </head>
+    <body>
+      <header class="navbar" aria-label="Cabeçalho do site">
+        <div class="container">
+          <div class="logo">NIXON'S RPG</div>
+        </div>
+      </header>
+
+      <!--HERO-->
+      <main>
+        <section class="hero" role="region" aria-label="Seção principal">
+          <div class="titulo-container">
+            <h1 class="titulo-home">NIXON'S RPG</h1>
+
+            <p class="explicacao">Ferramenta completa para criar, editar e organizar fichas de RPG.<br>
+            Simples, rápida e com visual totalmente personalizado.</p>
+
+            <a class="cta-btn" href="{{ url_for('login') }}" role="button">CRIAR SUA CONTA</a>
+          </div>
+        </section>
+      </main>
+
+      <footer></footer>
+    </body>
+  
+</html>

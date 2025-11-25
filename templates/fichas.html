@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de {{ personagem.nome }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ficha.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Ficha de {{ personagem.nome }}</h1>
+            <a href="{{ url_for('inicio') }}" class="btn btn-secondary">Voltar ao Início</a>
+        </div>
+
+        <!--  STATUS -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Status</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in status %}
+                        <tr>
+                            <td>{{ s.nome }}</td>
+                            <td>{{ s.valor }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('status_excluir', status_id=s.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir status?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- ADICIONAR STATUS -->
+                <form method="POST" action="{{ url_for('status_adicionar', personagem_id=personagem.id) }}">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="nome" placeholder="Nome do Status" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" name="valor" placeholder="Valor" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Adicionar Status</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- EDITAR STATUS -->
+                <hr>
+                <h6>Editar Status</h6>
+                <form method="POST" action="{{ url_for('status_editar', status_id=0) }}">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <select class="form-select" name="status_id" required onchange="this.form.action = '{{ url_for('status_editar', status_id=0) }}'.replace('0', this.value);">
+                                <option value="">Selecione Status</option>
+                                {% for s in status %}
+                                <option value="{{ s.id }}">{{ s.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" name="nome" placeholder="Novo Nome" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" name="valor" placeholder="Novo Valor" required>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-warning">Editar Status</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--  PERÍCIAS  -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Perícias</h5>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Bônus</th>
+                            <th>Status</th>
+                            <th>Item</th>
+                            <th>Dado</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pericias %}
+                        <tr>
+                            <td>{{ p.nome }}</td>
+                            <td>{{ p.bonus_fixo }}</td>
+                            <td>{{ p.usa_status or '-' }}</td>
+                            <td>{{ p.usa_item or '-' }}</td>
+                            <td>{{ p.dado_padrao or '-' }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('pericia_excluir', pericia_id=p.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir perícia?')">Excluir</button>
+                                </form>
+                                <form method="POST" action="{{ url_for('rolar_pericia', pericia_id=p.id) }}" style="display:inline;">
+                                    <input type="hidden" name="dado" value="1d20">
+                                    <button type="submit" class="btn btn-sm btn-success">Rolar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- ADICIONAR PERÍCIA -->
+                <form method="POST" action="{{ url_for('pericia_adicionar', personagem_id=personagem.id) }}">
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="nome" placeholder="Nome da Perícia" required>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class="form-control" name="bonus_fixo" placeholder="Bônus Fixo" value="0">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="usa_status">
+                                <option value="">Nenhum</option>
+                                {% for s in status %}
+                                <option value="{{ s.nome }}">{{ s.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="usa_item">
+                                <option value="">Nenhum</option>
+                                {% for i in itens %}
+                                <option value="{{ i.id }}">{{ i.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="dado_padrao" placeholder="Dado Padrão (ex: 1d20)">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Adicionar Perícia</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- EDITAR PERÍCIA -->
+                <hr>
+                <h6>Editar Perícia</h6>
+                <form method="POST" action="{{ url_for('pericia_editar', pericia_id=0) }}">
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <select class="form-select" name="pericia_id" required onchange="this.form.action = '{{ url_for('pericia_editar', pericia_id=0) }}'.replace('0', this.value);">
+                                <option value="">Selecione Perícia</option>
+                                {% for p in pericias %}
+                                <option value="{{ p.id }}">{{ p.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="nome" placeholder="Novo Nome" required>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class="form-control" name="bonus_fixo" placeholder="Novo Bônus Fixo" required>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="usa_status">
+                                <option value="">Nenhum</option>
+                                {% for s in status %}
+                                <option value="{{ s.nome }}">{{ s.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="usa_item">
+                                <option value="">Nenhum</option>
+                                {% for i in itens %}
+                                <option value="{{ i.id }}">{{ i.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="dado_padrao" placeholder="Novo Dado Padrão">
+                            <button type="submit" class="btn btn-warning mt-2">Editar Perícia</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--  ITENS  -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Itens</h5>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Bônus</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in itens %}
+                        <tr>
+                            <td>{{ i.nome }}</td>
+                            <td>{{ i.bonus }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('item_excluir', item_id=i.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir item?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- ADICIONAR ITEM -->
+                <form method="POST" action="{{ url_for('item_adicionar', personagem_id=personagem.id) }}">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="nome" placeholder="Nome do Item" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" name="bonus" placeholder="Bônus" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Adicionar Item</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- EDITAR ITEM -->
+                <hr>
+                <h6>Editar Item</h6>
+                <form method="POST" action="{{ url_for('item_editar', item_id=0) }}">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <select class="form-select" name="item_id" required onchange="this.form.action = '{{ url_for('item_editar', item_id=0) }}'.replace('0', this.value);">
+                                <option value="">Selecione Item</option>
+                                {% for i in itens %}
+                                <option value="{{ i.id }}">{{ i.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" name="nome" placeholder="Novo Nome" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" name="bonus" placeholder="Novo Bônus" required>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-warning">Editar Item</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ================= ROLAGEM MANUAL ================= -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Rolagem Manual</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('rolar_manual', personagem_id=personagem.id) }}">
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="dado" placeholder="Dado (ex: 1d20)" required>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class="form-control" name="modificador" placeholder="Modificador">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="status_id">
+                                <option value="">Status</option>
+                                {% for s in status %}
+                                <option value="{{ s.id }}">{{ s.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="item_id">
+                                <option value="">Item</option>
+                                {% for i in itens %}
+                                <option value="{{ i.id }}">{{ i.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="pericia_id">
+                                <option value="">Perícia</option>
+                                {% for p in pericias %}
+                                <option value="{{ p.id }}">{{ p.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Rolar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

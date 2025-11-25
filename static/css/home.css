@@ -1,0 +1,115 @@
+:root {
+  /*classes do css pra chamar qnd precisar*/
+  --bg-dark: #313031; /*pagina*/
+  --topbar-bg: #1b1612; /*navbar*/
+  --cta-bg: #7a6148; /*button*/
+  --cta-hover: #564636;
+  --text-light: #ffffff;
+  --max-width: 1000px; /*largura do conteudo central*/
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: "Cormorant", Georgia, 'Times New Roman', Times, serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+.container{
+  width: min(92%, --max-width);
+}
+
+.navbar {
+  background: var(--topbar-bg);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+  color: var(--text-light);
+  padding: 0 30px;
+}
+
+.hero {
+  position: relative; 
+  height: 100vh;
+  display: flex;
+  align-items: center; /*joga para o meio mas nao centraliza*/
+  justify-content: center; /*depois de jogar pra metade da pagina, centraliza no meio da mesma*/
+  text-align: center;
+  overflow: hidden;
+}
+
+.titulo-container {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.hero{
+  background-image: url(/static/img/backgtound-desktop.png);
+  background-position: center;
+  background-size: cover; /*cobrir a tela toda/n deixa pixelado*/
+  background-repeat: no-repeat;
+  opacity: 70%;
+}
+
+.titulo-home {
+  font-size: clamp(2.6rem, 5vw, 4.5rem); /*escala entre mobile e desktop*/
+  line-height: 0.95;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.explicacao {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500; /*deixa a letra grossa*/
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  max-width: 780px;
+  margin: 0 auto 28px;
+  color:rgba(255,255,255,0.95);
+  line-height: 1.6;
+}
+
+.cta-btn{
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--cta-bg);
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  border: 2px solid rgba(255,255,255,0.06);
+  transition: 
+  background-color 0.25s ease,
+  transform 0.25s ease,
+  box-shadow 0.25s ease,
+  opacity 0.25s ease;
+}
+
+.cta-btn:hover{
+  transform: translateY(-2px); /*joga o botao pra cima qnd passa o mouse*/
+  filter: brightness(1.08); /*da uma brilhada/clareada qnd coloca o pointer em cima*/
+  background-color: transparent;
+  opacity: 0.95;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.4);
+  transition: 0.5s;
+}

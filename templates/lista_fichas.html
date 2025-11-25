@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Fichas - {{ nome or 'Usuário' }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ficha.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Olá, {{ nome or 'Usuário' }}! Suas Fichas de RPG</h1>
+        
+        <!-- Lista de Personagens -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Seus Personagens</h5>
+            </div>
+            <div class="card-body">
+                {% if personagens %}
+                    <ul class="list-group">
+                        {% for p in personagens %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ p.nome }}
+                            <div>
+                                <a href="{{ url_for('ficha', personagem_id=p.id) }}" class="btn btn-primary btn-sm">Ver Ficha</a>
+                                <form method="POST" action="{{ url_for('excluir_personagem', personagem_id=p.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Excluir personagem?')">Excluir</button>
+                                </form>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Você ainda não tem personagens. Crie um abaixo!</p>
+                {% endif %}
+                
+                <!-- Criar Novo Personagem -->
+                <hr>
+                <form method="POST" action="{{ url_for('novo_personagem') }}">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="nome" placeholder="Nome do Personagem" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success">Criar Personagem</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Logout ou outras ações -->
+        <div class="mt-4">
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

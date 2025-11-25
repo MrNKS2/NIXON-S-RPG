@@ -1,0 +1,152 @@
+/* Importar fontes mais góticas do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@400;700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Fundo e layout geral - Paleta gótica: Tons pétreos e escuros */
+body {
+  width: 95%;
+  max-width: 1000px; /* Largura aumentada proporcionalmente */
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(169, 169, 169, 0.8); /* Cinza pedra com transparência */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(47, 47, 47, 0.7); /* Sombra negra para profundidade gótica */
+  color: #2F2F2F; /* Texto preto carvão */
+  animation: fadeIn 0.6s ease;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  /* Imagem de fundo mantida com gradiente pétreo */
+  background: linear-gradient(rgba(169, 169, 169, 0.5), rgba(112, 128, 144, 0.7)),
+    url("/static/img/backgtound-desktop.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Nova fonte gótica para texto geral */
+  font-family: 'Old Standard TT', serif;
+  margin: 0 auto;
+}
+
+/* Títulos - Paleta gótica: Preto com acentos dourados */
+body h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #2F2F2F; /* Preto carvão */
+  /* Nova fonte gótica para títulos */
+  font-family: 'UnifrakturCook', cursive;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(218, 165, 32, 0.5); /* Sombra dourada sutil */
+}
+
+body h2 {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  border-bottom: 1px solid rgba(218, 165, 32, 0.5); /* Dourado antigo */
+  padding-bottom: 10px;
+  color: #2F2F2F;
+  /* Nova fonte gótica para subtítulos */
+  font-family: 'UnifrakturCook', cursive;
+  font-weight: 400;
+}
+
+/* Inputs, selects e textareas - Paleta gótica: Fundo pétreo */
+body input,
+body select,
+body textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 12px 0;
+  background: rgba(169, 169, 169, 0.7); /* Cinza pedra */
+  border: 1px solid rgba(112, 128, 144, 0.5); /* Cinza médio */
+  border-radius: 10px;
+  color: #2F2F2F; /* Texto preto */
+  /* Nova fonte gótica para inputs */
+  font-family: 'Old Standard TT', serif;
+  font-size: 1rem;
+}
+
+body input::placeholder,
+body textarea::placeholder {
+  color: rgba(47, 47, 47, 0.6); /* Preto com transparência */
+  /* Nova fonte gótica para placeholders */
+  font-family: 'Old Standard TT', serif;
+}
+
+/* Botões - Paleta gótica personalizada */
+body .btn-primary { /* Adicionar */
+  background-color: #708090; /* Cinza pedra */
+  border-color: #708090;
+  color: #FFFFFF; /* Branco para contraste */
+}
+
+body .btn-primary:hover {
+  background-color: #5F6F7F; /* Cinza mais escuro */
+  border-color: #5F6F7F;
+}
+
+body .btn-warning { /* Editar */
+  background-color: #DAA520; /* Dourado antigo */
+  border-color: #DAA520;
+  color: #2F2F2F; /* Preto para legibilidade */
+}
+
+body .btn-warning:hover {
+  background-color: #B8860B; /* Dourado mais escuro */
+  border-color: #B8860B;
+}
+
+body .btn-danger { /* Excluir */
+  background-color: #800020; /* Borgonha escuro */
+  border-color: #800020;
+  color: #FFFFFF; /* Branco */
+}
+
+body .btn-danger:hover {
+  background-color: #5C0016; /* Borgonha mais escuro */
+  border-color: #5C0016;
+}
+
+body .btn-secondary { /* Geral (ex.: voltar) */
+  background-color: #2F2F2F; /* Preto carvão */
+  border-color: #2F2F2F;
+  color: #FFFFFF;
+}
+
+body .btn-secondary:hover {
+  background-color: #1C1C1C; /* Preto mais escuro */
+  border-color: #1C1C1C;
+}
+
+body .btn-success { /* Rolar */
+  background-color: #556B2F; /* Verde oliva escuro para vibe gótica */
+  border-color: #556B2F;
+  color: #FFFFFF;
+}
+
+body .btn-success:hover {
+  background-color: #3D4F1C; /* Verde oliva mais escuro */
+  border-color: #3D4F1C;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  body {
+    width: 98%;
+    padding: 20px;
+    max-width: none;
+  }
+  body h1 {
+    font-size: 2rem;
+  }
+  body h2 {
+    font-size: 1.2rem;
+  }
+}

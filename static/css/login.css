@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /*pra ele se sobrepor a tudo e ocupar o meio*/
+  background: linear-gradient(rgba(45, 40, 40, 0.5), rgba(45, 40, 40, 0.7)),
+    url("/static/img/backgtound-desktop.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.fund {
+  background-size: cover; /*cobrir a tela toda/n deixa pixelado*/
+  background-repeat: no-repeat;
+  opacity: 70%;
+  background-attachment: fixed; /* Manter a imagem fixa ao rolar */
+  background-position: center center;
+}
+
+.container {
+  width: 420px;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #fff;
+  padding: 30px 40px; /*adiciona margem na vertical e horizontal (30px em cima e em baixo 40px dos lados)*/
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; /*peguei esse modelo pronto do site css scan*/
+  backdrop-filter: blur(10px);
+}
+
+.container h1 {
+  font-size: 36px;
+  text-align: center;
+  align-items: center;
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 50px; /*espaço entre os formularios*/
+  margin: 30px 0;
+}
+
+.input-box input {
+  width: 100%; /*alonga a barra de input*/
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  outline: none; /*tira a linha azul qnd clica*/
+  font-size: 16px;
+  color: #fff;
+  padding: 20px 45px 20px 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.input-box input::placeholder {
+  color: #a3a0a0; /*coloca o usuario e senha escrito em branco*/
+}
+
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top: 50%; /*ele começa a partir do meio, então ->*/
+  transform: translateY(-50%); /*y = vertical. agr centralizou*/
+  font-size: 20px;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between; /*separa o texto do texto clicavel*/
+  margin: -15px 0 15px;
+}
+
+/*
+            margin e padding
+
+            1 valor - margin: 20 px - todos os lados
+            2 valores - margin: 20px 30px - em cima e embaixo, dos lados
+            3 valores - padding: 20px 10px 30px - em cima, dos lados, embaixo
+            4 valores - margin: 10px 30px 12px 33px - em cima, direita, embaixo, esquerda
+*/
+
+.remember-forgot label input {
+  accent-color: #fff; /*qnd vc clica no quadradinho de lembrar ele fica branco n azul*/
+  margin-right: 5px; /*pra desgrudar um pouco do botão*/
+}
+
+.remember-forgot a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.login {
+  width: 100%; /*comprimento*/
+  height: 50px; /*grossura*/
+  background-color: #7a6148;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 20px;
+}
+
+.login:hover {
+  transform: translateY(-2px); /*joga o botao pra cima qnd passa o mouse*/
+  filter: brightness(
+    1.08
+  ); /*da uma brilhada/clareada qnd coloca o pointer em cima*/
+  background-color: transparent;
+  opacity: 0.95;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
+  transition: 0.5s;
+}
+
+.register-link {
+  font-size: 14px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+
+.register-link a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.form.transition {
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  visibility: hidden;
+  transition: 0.35s ease, transform 0.35s ease;
+}
+
+.form.transition.active {
+  opacity: 1;
+  transform: translate(-50%, calc(50% - 10px));
+  visibility: visible;
+}
